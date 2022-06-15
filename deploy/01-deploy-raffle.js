@@ -43,12 +43,11 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
     })
 
     /* Verify won't work for some reason, issue is network.name */
-    //     if (developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
-    //         log("Verifying...")
-    //         await verify(raffle.address, arguments)
-    //     }
-    //     log("------------------------")
-    //
+    if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
+        log("Verifying...")
+        await verify(raffle.address, arguments)
+    }
+    log("------------------------")
 }
 
 module.exports.tags = ["all", "raffle"]
