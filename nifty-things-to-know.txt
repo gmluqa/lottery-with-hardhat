@@ -1,0 +1,5 @@
+sudo yarn global add hardhat-shorthand
+# now can run:
+hh compile/clean #/etc.
+# instead of:
+yarn hardhat compile/clean #/etc.
