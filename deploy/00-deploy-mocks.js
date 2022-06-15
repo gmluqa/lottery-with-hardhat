@@ -8,7 +8,6 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
     const { deploy, log } = deployments
     const { deployer } = await getNamedAccounts()
     const chainId = network.config.chainId
-    const args = [BASE_FEE, GAS_PRICE_LINK]
 
     if (chainId == 31337) {
         log("Local network detected, deploying mocks")
@@ -16,7 +15,7 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
         const mockraffle = await deploy("VRFCoordinatorV2Mock", {
             // Just use full file name no extension, no need to target folder its specifically in
             from: deployer,
-            args: args,
+            args: [BASE_FEE, GAS_PRICE_LINK],
             log: true,
             waitConfirmations: network.config.blockConfirmations || 1,
         })

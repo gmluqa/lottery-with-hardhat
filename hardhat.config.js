@@ -19,7 +19,10 @@ module.exports = {
     networks: {
         hardhat: {
             chainId: 31337,
-            blockConfirmations: 1,
+            // blockConfirmations: 1,
+        },
+        localhost: {
+            chainId: 31337,
         },
         rinkeby: {
             chainId: 4,
@@ -28,6 +31,7 @@ module.exports = {
             accounts: [PRIVATE_KEY], // is in array because filed asks for array format
         },
     },
+
     solidity: "0.8.7",
     namedAccounts: {
         // Named accounts module
