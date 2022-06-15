@@ -26,9 +26,16 @@ module.exports = {
         },
         rinkeby: {
             chainId: 4,
-            blockConfirmations: 6,
+            // blockConfirmations: 6,
             url: RINKEBY_RPC_URL,
             accounts: [PRIVATE_KEY], // is in array because filed asks for array format
+            saveDeployments: true,
+        },
+    },
+    etherscan: {
+        // yarn hardhat verify --network <NETWORK> <CONTRACT_ADDRESS> <CONSTRUCTOR_PARAMETERS>
+        apiKey: {
+            rinkeby: ETHERSCAN_API_KEY,
         },
     },
     gasReporter: {
@@ -39,12 +46,13 @@ module.exports = {
         // Named accounts module
         deployer: {
             default: 0, // defaults to hardhat account[0]
+            1: 0,
         },
         player: {
             default: 1, // defaults to hardhat account[1]
         },
     },
     mocha: {
-        timeout: 500000, // 500 seconds max for promises
+        timeout: 200000, // 200 seconds max for promises
     },
 }
