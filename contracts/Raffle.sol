@@ -65,7 +65,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
     // The VRFConsumerBaseV2() is basically fulfilling the constructor of the interface, takes in the param of address vrf... and populates it
     constructor(
         bytes32 keyHash,
-        address vrfCoordinatorV2,
+        address vrfCoordinatorV2, // contract, will have to deploy mock for local test
         uint256 entranceFee,
         uint64 subscriptionId,
         uint32 callbackGasLimit,
