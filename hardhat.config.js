@@ -31,7 +31,9 @@ module.exports = {
             accounts: [PRIVATE_KEY], // is in array because filed asks for array format
         },
     },
-
+    gasReporter: {
+        enabled: false,
+    },
     solidity: "0.8.7",
     namedAccounts: {
         // Named accounts module
