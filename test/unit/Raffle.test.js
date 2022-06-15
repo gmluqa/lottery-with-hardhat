@@ -138,18 +138,29 @@ const { assert, expect } = require("chai")
                       raffle.once("WinnerPicked", async () => {
                           console.log("Found the event!")
                           try {
-                              console.log(accounts[0])
-                              console.log(accounts[1])
-                              console.log(accounts[2])
-                              console.log(accounts[3])
+                              console.log(accounts[0].address)
+                              console.log(accounts[1].address)
+                              console.log(accounts[2].address)
+                              console.log(accounts[3].address)
                               const recentWinner = await raffle.getWinner()
                               console.log(recentWinner)
                               const raffleState = await raffle.getRaffleState()
                               const endingTimeStamp = await raffle.getLatestTimeStamp()
                               const numPlayers = await raffle.getNumberOfPlayers()
+                              const winnerEndingBalance = await accounts[1].getBalance()
                               assert.equal(numPlayers.toString(), "0")
                               assert.equal(raffleState.toString(), "0")
                               assert(endingTimeStamp > startingTimeStamp)
+                              assert.equal(
+                                  winnerEndingBalance.toString(),
+                                  //   https://docs.ethers.io/v5/api/utils/bignumber/ .add and .mul ethers methods
+                                  winnerStartingBalance.add(
+                                      raffleEntranceFee
+                                          .mul(additionalEntrants)
+                                          .add(raffleEntranceFee)
+                                          .toString()
+                                  )
+                              )
                           } catch (e) {
                               reject(e)
                           }
@@ -157,6 +168,7 @@ const { assert, expect } = require("chai")
                       })
                       const tx = await raffle.performUpkeep([])
                       const txReceipt = await tx.wait(1)
+                      const winnerStartingBalance = await accounts[1].getBalance()
                       await vrfCoordinatorV2Mock.fulfillRandomWords(
                           txReceipt.events[1].args.requestId, // takes in request id as param and
                           raffle.address // takes in consumer address
