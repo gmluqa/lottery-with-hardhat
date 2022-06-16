@@ -3,9 +3,11 @@
 const { ethers } = require("hardhat")
 
 async function enterRaffle() {
+    // https://docs.ethers.io/ethers-app/html/dev-api-contracts.html#connecting-to-a-contract
+    // gets address from deployments/rinkeby/Raffle.json[address]
     const raffle = await ethers.getContract("Raffle")
     const entranceFee = await raffle.getEntranceFee()
-    await raffle.enterRaffle({ value: entranceFee + 1 })
+    await raffle.enterRaffle({ value: entranceFee })
     console.log("Entered!")
 }
 

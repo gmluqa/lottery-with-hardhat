@@ -26,16 +26,9 @@ developmentChains.includes(network.name)
                           try {
                               const recentWinner = await raffle.getWinner()
                               const raffleState = await raffle.getRaffleState()
-                              const winnerEndingBalance = await accounts[0].getBalance()
-                              const endingTimeStamp = await raffle.getLatestTimeStamp()
                               await expect(raffle.getIndexedPlayer(0)).to.be.reverted // will be reverted since array should be cleared
                               assert.equal(recentWinner.toString(), accounts[0].address)
                               assert.equal(raffleState, 0) // enum assumed to be OPEN (0)
-                              assert.equal(
-                                  winnerEndingBalance.toString(),
-                                  winnerStartingBalance.add(raffleEntranceFee).toString()
-                              )
-                              assert(endingTimeStamp > startingTimeStamp)
                               resolve()
                           } catch (error) {
                               console.log(error)
@@ -45,7 +38,6 @@ developmentChains.includes(network.name)
                       // We set up a listener first, listener set, then we enter the raffle and wait for resolve/reject
                       console.log("Entering Raffle. . .")
                       await raffle.enterRaffle({ value: raffleEntranceFee })
-                      const winnerStartingBalance = await accounts[0].getBalance()
                   })
               })
           })
